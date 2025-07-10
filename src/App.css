@@ -31,11 +31,21 @@
 }
 
 .LoginContainer{
-  margin: 1em;
+  display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    padding: 2em 2em 0px 0px;
 }
 
 .loginForm{
+  padding: 2em;
   background-color: #6D1277;
+  color: #ffff;
+  border-radius: 0px 10px 10px 0px;
+  box-shadow: 6px 7px 5px -3px rgba(0,0,0,0.38);
+  -webkit-box-shadow: 6px 7px 5px -3px rgba(0,0,0,0.38);
+  -moz-box-shadow: 6px 7px 5px -3px rgba(0,0,0,0.38);
 }
 
 @keyframes logo-spin {
