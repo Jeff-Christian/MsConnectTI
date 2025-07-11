@@ -20,23 +20,6 @@ body {
   min-height: 100vh;
 }
 
-input{
-  box-sizing: border-box;
-  background-color: #FFFFFF;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  margin-bottom: 1em;
-}
-
-label{
-      display: flex
-;
-    align-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
 button {
   color: #000000;
   border-radius: 8px;
