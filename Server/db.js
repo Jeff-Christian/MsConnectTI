@@ -1,15 +1,12 @@
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
+
 dotenv.config();
 
-const connectDB = () => {
-    const connectionParams = {
-
-    };
-
+const connectDB = async () => {
     try{
     // eslint-disable-next-line no-undef
-    mongoose.connect(process.env.DB, connectionParams)
+    await mongoose.connect(process.env.DB)
     console.log("Conectado com sucesso a database!");
     } catch (error){
         console.log(error);
