@@ -151,3 +151,17 @@ export const logout = async (req, res) => {
         });
     }
 }
+
+// user verification is authenticated
+export const isAuthenticated = async (req, res) => {
+    try {
+        return res.json({
+            success: true
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        });
+    }
+}
