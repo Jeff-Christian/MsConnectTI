@@ -36,6 +36,17 @@ function Login() {
     });
   }
 
+  axios.post(
+    "http://localhost:8080/api/auth/login",
+    {
+      email,
+      password
+    }
+  ).then(res => {
+    localStorage.setItem("token", res.data.token);
+    navigate("/home")
+  }).catch(err => console.error(err));
+
 
   return (
     <>
