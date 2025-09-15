@@ -9,6 +9,9 @@ import 'dotenv/config';
 import authRouter from "./routes/auth.js";
 import userRouter from "./routes/users.js";
 
+// Model
+import userModel from "./modules/userModel.js";
+
 dotenv.config();
 const app = express();
 
@@ -34,3 +37,25 @@ app.listen(port, () => console.log(`Ouvindo a porta ${port}...`));
 app.get('/api/user/data', (req, res) => {
   res.send('Rota funciona');
 });
+
+app.post('/api/auth/login', (req, res) => {
+  const {
+    email,
+    password
+  } = req.body;
+
+  userModel.findOne({email: email}).then(
+    user => {
+      if(user) {
+        if (user.password === password) {
+          res.json("Success")
+        } else {
+          res.json("A senha está incorreta")
+        }
+      } else {
+        res.json("Usuário não encontrado")
+      }
+    }
+  );
+
+})

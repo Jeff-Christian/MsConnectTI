@@ -5,8 +5,10 @@ dotenv.config();
 
 const connectDB = async () => {
     try{
-    // eslint-disable-next-line no-undef
-    await mongoose.connect(process.env.DB)
+    await mongoose.connect(process.env.DB, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
     console.log("Conectado com sucesso a database!");
     } catch (error){
         console.log(error);

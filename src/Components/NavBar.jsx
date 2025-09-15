@@ -2,9 +2,12 @@ import React from 'react'
 
 function NavBar() {
   return (
-    <div>
-      
-    </div>
+    <nav>
+      <div className='container'>
+
+        
+      </div>
+    </nav>
   )
 }
 
