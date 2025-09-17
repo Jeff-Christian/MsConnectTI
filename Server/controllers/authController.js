@@ -69,66 +69,60 @@ export const Register = async (req, res) => {
 
 // Controller de Login
 export const login = async (req, res) => {
-    const {
-        email,
-        password
-    } = req.body;
+    const { email, password } = req.body;
 
-    if(!email || !password){
-        return res.json({
-            success: false, 
-            message: 'Email e Senhas são obrigatórias'
-        })
+    if (!email || !password) {
+        return res.status(400).json({
+            success: false,
+            message: 'Email e senha são obrigatórios'
+        });
     }
 
-    try{
+    try {
+        const user = await userModel.findOne({ email });
 
-        const user = await userModel.findOne({
-            email   
-        })
-
-        if(!user){
-            return res.json({
-                success: false, 
-                message: "Email Inválido"
-            })
-        }
-
-        const isMatch = await bcrypt.compare(
-            password, 
-            user.password
-        );
-
-        if(!isMatch){
-            return res.json({
+        if (!user) {
+            return res.status(401).json({
                 success: false,
-                message: "Senha Inválida"
-            })
+                message: "Email não cadastrado"
+            });
         }
 
-        const token = jwt.sign({
-            id: user._id
-        }, 
-            process.env.JWTPRIVATEKEY,
+        const isMatch = await bcrypt.compare(password, user.password);
 
-            {expiresIn: '7d'}
+        if (!isMatch) {
+            return res.status(401).json({
+                success: false,
+                message: "Senha incorreta"
+            });
+        }
+
+        const token = jwt.sign(
+            { id: user._id },
+            process.env.JWTPRIVATEKEY,
+            { expiresIn: '7d' }
         );
 
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict', 
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
             maxAge: 7 * 24 * 60 * 60 * 1000
-        })
+        });
 
         return res.json({
-            success: true
-        })
+            success: true,
+            message: "Login realizado com sucesso"
+        });
 
     } catch (error) {
         console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Erro no servidor"
+        });
     }
-}
+};
 
 // controller de LogOut
 export const logout = async (req, res) => {

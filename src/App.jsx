@@ -1,10 +1,14 @@
 import './App.css';
+import { ToastContainer } from 'react-toastify';
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
-import Login from './Pages/Login';
-import Home from './Pages/Home';
-import { ToastContainer } from 'react-toastify';
+
 import PrivateRoute from './Components/PrivateRoute';
+import Login from './Pages/Login';
+import DashboardLayout from './Components/DashboardLayout';
+import Computadores from "./Pages/Computadores";
+import Tickets from "./Pages/Tickets";
+import Inventario from "./Pages/Inventario";
 
 function App() {
 
@@ -13,17 +17,20 @@ function App() {
     <ToastContainer/>
       <BrowserRouter>
         <Routes>
+
           <Route path="/" element={<Login/>}/>
 
           <Route 
-          path="/home" 
-          element={
+            path="/dashboard" 
+            element={
             <PrivateRoute>
-              <Home/>
+              <DashboardLayout />
             </PrivateRoute>
-          }/>
-
-          <Route path="*" element={<Navigate to="/login" />} />
+            }>
+            <Route path="computadores" element={<Computadores />} />
+            <Route path="tickets" element={<Tickets />} />
+            <Route path="inventario" element={<Inventario />} />
+          </Route>
 
         </Routes>
       </BrowserRouter>

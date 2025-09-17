@@ -1,0 +1,39 @@
+/* Dashboard */
+
+a{
+    color: #fff;
+    text-decoration: none;
+}
+
+nav{    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+}
+
+.logo{
+    width: 80%;
+}
+
+.sidebar{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    background-color: #6D1277;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.ContainerContent{
+    width: 800px;
+    height: 80vh;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+}
+
+.logout{
+    width: 140px;
+    height: 45px;
+}
