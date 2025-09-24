@@ -8,7 +8,6 @@ import {
 
 const router = express.Router();
 
-
 router.get("/", getPcs);      
 router.post("/", createPc);    
 router.put("/:id", updatePc);   

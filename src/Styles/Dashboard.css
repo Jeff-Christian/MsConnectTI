@@ -23,10 +23,11 @@ nav{
     align-items: center;
     background-color: #6D1277;
     border-radius: 10px 0px 0px 10px;
+    margin-right: 15px;
 }
 
 .ContainerContent{
-    width: 800px;
+    width: 90vw;
     height: 80vh;
     background-color: #fff;
     border-radius: 10px;
@@ -36,4 +37,21 @@ nav{
 .logout{
     width: 140px;
     height: 45px;
+}
+
+/* Computadores */
+
+.contentText{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.contentText h1{
+    font-size: 1em;
+}
+
+.contentText p{
+    margin: 0;
+    font-size: 15px;
 }

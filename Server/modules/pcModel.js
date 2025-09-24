@@ -10,15 +10,20 @@ const PeripheralSchema = new mongoose.Schema({
 })
 
 const PcSchema = new mongoose.Schema({
-    id: {
+    pcId: {
         type: String, 
         required: true, 
-        unique: true
+    },
+    status: {
+        type: String,
+        enum: ["ativo", "inativo", "desmontado"], 
+        default: "ativo" 
     },
     perifericos: [PeripheralSchema],
-    tickets: [{
-        type: String
-    }]
+    tickets: { 
+        type: [String], 
+        default: [] 
+    }
 }, {
     timestamps: true
 })

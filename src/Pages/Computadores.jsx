@@ -1,6 +1,10 @@
 import React from 'react';
-import { useEffect, useState } from "react";
 import axios from "axios";
+
+import { useEffect, useState } from "react";
+
+import AddPcForm from '../modal/AddPcForm';
+import '../styles/Computadores.css';
 
 const statusColors = {
   Ativo: "bg-green-500",
@@ -17,11 +21,12 @@ const peripheralColors = {
 function Computadores() {
 
   const [pcs, setPcs] = useState([]);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     const fetchPcs = async () => {
       try {
-        const { data } = await axios.get("http://localhost:8080/api/pcs"); // sua API
+        const { data } = await axios.get("http://localhost:8080/api/pcs");
         setPcs(data);
       } catch (err) {
         console.error("Erro ao buscar PCs:", err);
@@ -30,55 +35,73 @@ function Computadores() {
     fetchPcs();
   }, []);
 
+  const handleAddPc = (newPc) => {
+    setPcs([...pcs, newPc]); // atualiza os cards
+    setShowForm(false); // fecha form
+  };
+
 
 return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {pcs.map((pc) => (
-        <div
-          key={pc.id}
-          className="bg-white rounded-2xl p-4 shadow flex flex-col gap-2"
-        >
-          <h2 className="font-bold text-lg">ID: {pc.id}</h2>
+    <>
+    <div className="contentText">
+      <h1>Overview pcs ti</h1>
+      <p>Lista de computadores em operação</p>
+      <button
+        onClick={() => setShowForm(!showForm)}
+        className="bg-green-600 text-white px-4 py-2 rounded mb-4"
+      >
+        {showForm ? "Cancelar" : "Adicionar PC"}
+      </button>
 
-          <div className="flex gap-2 flex-wrap">
-            {pc.perifericos.map((item) => (
+      {showForm && <AddPcForm onAdd={handleAddPc} onClose={() => setShowForm(false)} />}
+    </div>
+
+    <div className="pc-grid">
+      {pcs.map((pc) => (
+        <div className="pc-card" key={pc._id}>
+          <h3 className="pc-id">{pc.pcId}</h3>
+
+          <div className="perifericos">
+            {pc.perifericos.map((p, index) => (
               <span
-                key={item.nome}
-                className={`px-2 py-1 rounded-full text-sm text-white ${peripheralColors[item.status]}`}
+                key={index}
+                className={`tag ${
+                  p.status === "ativo" ? "tag-green" : "tag-red"
+                }`}
               >
-                {item.nome}
+                {p.name}
               </span>
             ))}
           </div>
 
-          <div className="mt-2">
+          <div className="status">
             <span
-              className={`px-2 py-1 rounded text-sm text-white ${statusColors[pc.status]}`}
+              className={`status-tag ${
+                pc.status === "ativo"
+                  ? "status-green"
+                  : pc.status === "inativo"
+                  ? "status-red"
+                  : "status-gray"
+              }`}
             >
-              {pc.status}
+              {pc.status === "desmontado" ? "Mesa desmontada" : pc.status}
             </span>
           </div>
 
-          <div className="mt-2">
-            <p className="text-sm font-semibold">Tickets abertos:</p>
-            <div className="flex gap-2 flex-wrap">
-              {pc.tickets.length > 0 ? (
-                pc.tickets.map((t) => (
-                  <span
-                    key={t}
-                    className="px-2 py-1 bg-gray-200 text-gray-700 rounded text-xs"
-                  >
-                    {t}
-                  </span>
-                ))
-              ) : (
-                <span className="text-xs text-gray-500">Nenhum</span>
-              )}
+          <div className="tickets">
+            <p>Tickets abertos</p>
+            <div className="tickets-list">
+              {pc.tickets.map((t, i) => (
+                <span key={i} className="ticket-tag">
+                  {t}
+                </span>
+              ))}
             </div>
           </div>
         </div>
       ))}
     </div>
+  </>
   );
 }
 

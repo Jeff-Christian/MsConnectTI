@@ -1,0 +1,107 @@
+.pc-grid{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Card geral */
+.pc-card {
+  background: #f9fafb;
+  border-radius: 15px;
+  padding: 20px;
+  width: 150px;
+  min-height: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s ease;
+}
+
+.pc-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Título ID */
+.pc-id {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: #111;
+}
+
+/* Tags de periféricos */
+.perifericos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.tag-green {
+  background: #4ade80; /* verde */
+}
+
+.tag-red {
+  background: #f87171; /* vermelho */
+}
+
+.tag-gray {
+  background: #d1d5db; /* cinza */
+  color: #333;
+}
+
+/* Status */
+.status-tag {
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.status-green {
+  background: #22c55e;
+  color: #fff;
+}
+
+.status-red {
+  background: #ef4444;
+  color: #fff;
+}
+
+.status-gray {
+  background: #9ca3af;
+  color: #fff;
+}
+
+/* Tickets */
+.tickets {
+  font-size: 13px;
+  color: #333;
+}
+
+.tickets-list {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ticket-tag {
+  background: #e5e7eb;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #374151;
+}
+
+
