@@ -1,24 +1,125 @@
-.pc-grid{
+.pagination {
+  margin: 20px;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  align-items: center;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  border: none;
+  background: #eee;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pc-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+  grid-template-rows: repeat(4, 1fr);   /* 4 linhas fixas */
+  gap: 16px; /* espaço entre cards */
+  width: 100%;
+  height: 100%; /* ocupa toda a área central */
+  box-sizing: border-box;
 }
 
 /* Card geral */
 .pc-card {
-  background: #f9fafb;
-  border-radius: 15px;
-  padding: 20px;
-  width: 150px;
-  min-height: 160px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: #F6F8FC;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  transition: transform 0.2s ease;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .pc-card:hover {
   transform: translateY(-4px);
+}
+
+/* Título */
+.card h2 {
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 0 0 12px;
+}
+
+/* Tags (periféricos) */
+.card .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.card .tags span {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: white;
+}
+
+.card .tags .ativo {
+  background: #22c55e; /* verde */
+}
+
+.card .tags .inativo {
+  background: #ef4444; /* vermelho */
+}
+
+/* Status */
+.card .status {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.card .status span {
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.card .status .ativo {
+  background: #22c55e;
+}
+
+.card .status .inativo {
+  background: #ef4444;
+}
+
+/* Tickets */
+.card .tickets {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.card .tickets-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.card .tickets-list span {
+  background: #e5e7eb;
+  border-radius: 12px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
 }
 
 /* Título ID */

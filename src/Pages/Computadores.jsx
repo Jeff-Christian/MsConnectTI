@@ -23,6 +23,15 @@ function Computadores() {
   const [pcs, setPcs] = useState([]);
   const [showForm, setShowForm] = useState(false);
 
+  const [page, setPage] = useState(0);
+  const itemsPerPage = 16;
+
+  // calcula início e fim da "fileira"
+  const startIndex = page * itemsPerPage;
+  const visiblePcs = pcs.slice(startIndex, startIndex + itemsPerPage);
+
+  const totalPages = Math.ceil(pcs.length / itemsPerPage);
+
   useEffect(() => {
     const fetchPcs = async () => {
       try {
@@ -44,17 +53,40 @@ function Computadores() {
 return (
     <>
     <div className="contentText">
-      <h1>Overview pcs ti</h1>
-      <p>Lista de computadores em operação</p>
-      <button
+      <div className="text-section">
+        <h1>Overview pcs ti</h1>
+        <p>Lista de computadores em operação</p>
+      </div>
+      <div>
+        <button
         onClick={() => setShowForm(!showForm)}
-        className="bg-green-600 text-white px-4 py-2 rounded mb-4"
-      >
+        className="bg-green-600 text-white px-4 py-2 rounded mb-4 addpc"
+        >
         {showForm ? "Cancelar" : "Adicionar PC"}
-      </button>
+        </button>
+      </div>
 
       {showForm && <AddPcForm onAdd={handleAddPc} onClose={() => setShowForm(false)} />}
     </div>
+
+     {/* Controles de fileira/página */}
+      <div className="pagination">
+        <button
+          disabled={page === 0}
+          onClick={() => setPage((p) => p - 1)}
+        >
+          ◀ Anterior
+        </button>
+        <span>
+          Fileira {page + 1} de {totalPages}
+        </span>
+        <button
+          disabled={page === totalPages - 1}
+          onClick={() => setPage((p) => p + 1)}
+        >
+          Próxima ▶
+        </button>
+      </div>
 
     <div className="pc-grid">
       {pcs.map((pc) => (

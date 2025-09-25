@@ -24,13 +24,15 @@ nav{
     background-color: #6D1277;
     border-radius: 10px 0px 0px 10px;
     margin-right: 15px;
+    padding: 1em;
 }
 
 .ContainerContent{
     width: 90vw;
-    height: 80vh;
+    height: 100vh;
     background-color: #fff;
     border-radius: 10px;
+    padding-right: 1em;
     display: flex;
 }
 
@@ -43,8 +45,9 @@ nav{
 
 .contentText{
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .contentText h1{
@@ -54,4 +57,14 @@ nav{
 .contentText p{
     margin: 0;
     font-size: 15px;
+}
+
+.text-section{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.addpc{
+    margin: 1em;
 }
