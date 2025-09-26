@@ -22,6 +22,7 @@ function Computadores() {
 
   const [pcs, setPcs] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [selectedFileira, setSelectedFileira] = useState("A"); // padrão
 
   const [page, setPage] = useState(0);
   const itemsPerPage = 16;
@@ -49,6 +50,20 @@ function Computadores() {
     setShowForm(false); // fecha form
   };
 
+    // filtra pcs pela fileira selecionada
+  // filtra pcs pela fileira selecionada (A até F)
+const pcsFiltrados = pcs
+  .filter((pc) => {
+    // pega a última letra da parte "PC-SP-A01" → "A"
+    const match = pc.pcId.match(/-([A-F])/);
+    return match && match[1] === selectedFileira;
+  })
+  .sort((a, b) =>
+    a.pcId.localeCompare(b.pcId, undefined, {
+      numeric: true,
+      sensitivity: "base",
+    })
+  );
 
 return (
     <>
@@ -69,70 +84,71 @@ return (
       {showForm && <AddPcForm onAdd={handleAddPc} onClose={() => setShowForm(false)} />}
     </div>
 
-     {/* Controles de fileira/página */}
-      <div className="pagination">
+    {/* Abas de fileiras */}
+    <div className="tabs">
+      {["A", "B", "C", "D", "E", "F"].map((f) => (
         <button
-          disabled={page === 0}
-          onClick={() => setPage((p) => p - 1)}
+          key={f}
+          onClick={() => setSelectedFileira(f)}
+          className={`tab ${selectedFileira === f ? "active" : ""}`}
         >
-          ◀ Anterior
+          Fileira {f}
         </button>
-        <span>
-          Fileira {page + 1} de {totalPages}
-        </span>
-        <button
-          disabled={page === totalPages - 1}
-          onClick={() => setPage((p) => p + 1)}
-        >
-          Próxima ▶
-        </button>
-      </div>
+      ))}
+    </div>
 
     <div className="pc-grid">
-      {pcs.map((pc) => (
-        <div className="pc-card" key={pc._id}>
-          <h3 className="pc-id">{pc.pcId}</h3>
+      {pcs
+        .slice() // cria uma cópia pra não mutar o state
+        .sort((a, b) =>
+          a.pcId.localeCompare(b.pcId, undefined, { numeric: true, sensitivity: "base" })
+        )
+        .slice(startIndex, startIndex + itemsPerPage) // aplica a paginação na lista já ordenada
+        .map((pc) => (
+          <div className="pc-card" key={pc._id}>
+            <h3 className="pc-id">{pc.pcId}</h3>
 
-          <div className="perifericos">
-            {pc.perifericos.map((p, index) => (
-              <span
-                key={index}
-                className={`tag ${
-                  p.status === "ativo" ? "tag-green" : "tag-red"
-                }`}
-              >
-                {p.name}
-              </span>
-            ))}
-          </div>
-
-          <div className="status">
-            <span
-              className={`status-tag ${
-                pc.status === "ativo"
-                  ? "status-green"
-                  : pc.status === "inativo"
-                  ? "status-red"
-                  : "status-gray"
-              }`}
-            >
-              {pc.status === "desmontado" ? "Mesa desmontada" : pc.status}
-            </span>
-          </div>
-
-          <div className="tickets">
-            <p>Tickets abertos</p>
-            <div className="tickets-list">
-              {pc.tickets.map((t, i) => (
-                <span key={i} className="ticket-tag">
-                  {t}
+            <div className="perifericos">
+              {pc.perifericos.map((p, index) => (
+                <span
+                  key={index}
+                  className={`tag ${
+                    p.status === "ativo" ? "tag-green" : "tag-red"
+                  }`}
+                >
+                  {p.name}
                 </span>
               ))}
             </div>
+
+            <div className="status">
+              <span
+                className={`status-tag ${
+                  pc.status === "ativo"
+                    ? "status-green"
+                    : pc.status === "inativo"
+                    ? "status-red"
+                    : "status-gray"
+                }`}
+              >
+                {pc.status === "desmontado" ? "Mesa desmontada" : pc.status}
+              </span>
+            </div>
+
+            <div className="tickets">
+              <p>Tickets abertos</p>
+              <div className="tickets-list">
+                {pc.tickets.map((t, i) => (
+                  <span key={i} className="ticket-tag">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
+
   </>
   );
 }

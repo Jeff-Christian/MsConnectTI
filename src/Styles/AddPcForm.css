@@ -78,9 +78,15 @@
   box-shadow: 0 0 0 2px rgba(107, 70, 193, 0.2);
 }
 
+.perifericos-list{
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
 /* Botão */
 .submit-btn {
-  background: #6b46c1;
+  background: #6D1277;
   color: #fff;
   padding: 12px;
   border: none;
@@ -92,7 +98,7 @@
 }
 
 .submit-btn:hover {
-  background: #553092;
+  background: #90199e;
 }
 
 /* Animação */

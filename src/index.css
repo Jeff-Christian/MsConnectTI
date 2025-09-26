@@ -20,6 +20,10 @@ body {
   min-height: 100vh;
 }
 
+li{
+  list-style: none;
+}
+
 button {
   color: #000000;
   border-radius: 8px;
